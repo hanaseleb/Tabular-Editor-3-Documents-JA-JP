@@ -21,6 +21,17 @@ Tabular Editor 3にはテーブルインポートウィザードがあり、モ�
 
 ![importing-tables1](https://docs.tabulareditor.com/images/import-tables-wizard.png)
 
+## TOMデータソースの種類
+
+Analysis Servicesのバージョンによって、モデルのメタデータ内でデータソースを定義する方法が異なります。
+
+- Provider (aka. Legacy): Analysis Servicesのすべてのバージョン、すべての互換性レベルで利用できます。限られた範囲のソースをサポートしており、主にOLE DB/ODBCライバによるリレーショナルデータをサポートしています。パーティションは通常、ソースに対してネイティブに実行されるSQLステートメントを使用して定義されます。認証情報は、Tabular Object ModelのProvider Data Sourceオブジェクトで管理され、サーバー側で保存および暗号化されます。
+- Structured (aka. Power Query): SQL Server 2017（互換性レベル1400+）から利用可能。レガシープロバイダーよりも広範囲のデータソースをサポートします。パーティションは通常、M（Power Query）式を使って定義します。認証情報はTabular Object ModelのStructured Data Sourceオブジェクトで管理され、Analysis Servicesへの展開時に毎回指定する必要があります。
+- Implicit data sources: Power BIデータセットでのみ使用されます。モデル内に明示的なデータソースオブジェクトは作成されません。代わりに、M（Power Query）式でデータソースを暗黙的に定義します。認証情報はTabular Object Modelには保存されず、Power BI DesktopまたはPower BI Serviceによって管理されます。
+
+>注意
+>Tabular Editor 2.x のテーブルインポートウィザードとテーブルスキーマの更新機能は、SQL パーティションを持つレガシーデータソースのみをサポートします。つまり、Power Query パーティションには対応していません。このため、開発者ツール間の相互運用性が最も高いレガシーデータソースを使用することをお勧めします。
+
 ## ダイアグラムの使用
 
 Tabular Editor 3では、**ダイアグラム**は、モデル内のテーブル間の関係を視覚化したり編集したりするために使用できるドキュメントです。モデルの特定の領域を視覚化するために、必要な数のダイアグラムを作成できます。ダイアグラムは単独のファイルとして保存ができます。詳しくは、<xref:supported-files#diagram-file-te3diag>をご覧ください。
